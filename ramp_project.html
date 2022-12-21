@@ -35,8 +35,8 @@
 				<div id="main" class="wrapper style1">
 					<div class="container">
 						<header class="major">
-							<h2>Predict Bycicle Traffic in Paris ?</h2>
-							<p>In Paris, counters are installed all over the city to measure bicycle traffic. They have sensors to detect when a bycicle pass them and hence they count the number of bycicles that pass at a certain location throughout the day. Counts are then aggregated by hour and the goal of this project was to predict in the future bycicle traffic in Paris.</p>
+							<h2>Predict Bicycle Traffic in Paris?</h2>
+							<p>In Paris, counters are installed all over the city to measure bicycle traffic. They have sensors to detect when a bicycle passes them and hence they count the number of bicycles that pass at a certain location throughout the day. Counts are then aggregated by hours and the goal of this project was to predict future bicycle traffic in Paris.</p>
 						</header>
 
 						<!-- Content -->
@@ -70,7 +70,7 @@
 								</p>
 								<h3>Data preparation</h3>
 								<p>Because we want to add data that will be useful for predictiong the target variable, we must ask ourselves what factors look useful to predict bike count in Paris. <br><br>
-								Why do people take their bycicle?
+								Why do people take their bicycle?
 								<li> Mainly to go to work/school/university.</li> <br>
 								What factors might influence their decision to take the bike? <br> <br>
 								<li> The weather (if it is pouring/snowing it might be dangerous or not possible to take the bike)</li>
@@ -141,7 +141,7 @@ the counters except one: counter ”90 Rue De S`evres NE-SO”. We note from the
 poor predictions overall in late August but that it is very accurate over the rest of the period. The counter ”90 Rue De S`evres NE-SO” is the only counter with very low counts in
 September.
 <br><br> The reason for this could be:
-<li>a technical problem on the counter that prevents it to count every bycicle (for example their could be some physical obstacle on the street that diminishes its capability to count bycicles</li>
+<li>a technical problem on the counter that prevents it to count every bicycle (for example their could be some physical obstacle on the street that diminishes its capability to count bicycles</li>
 <li>a phenomena that occurs for this particular counter that our model cannot predict because we did not give it enough information. Adding relevant data could be a solution in that case.</li>
  <br> Finally, we note that our model has more accurate predictions for counters with high counts which is
 a consequence of the squared errors in the objective function.
@@ -150,9 +150,9 @@ a consequence of the squared errors in the objective function.
 								<br>
 								<h3>How could we go futher?</h3>
 								Here is a non exhaustive list of some ideas we have to improve our model:
-								<li>Get expert knowledge to understand the underlying phenomenon that impact the bycicle traffic. </li>
+								<li>Get expert knowledge to understand the underlying phenomenon that impact the bicycle traffic. </li>
 								<li>Try different class of machine learning techniques that do not simply take the date as a feature but actually have weights that evolved in time such as Dynamic Linear Model. Recurrent neural network (RNN) could be another interesting path to explore</li>
-								<li>Fit one model per counter, the issue with this is that we loose generality of our model and interpretability of general phenomena that impact bycicle traffic in Paris. The computational cost of training the model is also much greater the final model will more complex.</li>
+								<li>Fit one model per counter, the issue with this is that we loose generality of our model and interpretability of general phenomena that impact bicycle traffic in Paris. The computational cost of training the model is also much greater the final model will more complex.</li>
 								<br>
 								<h3>Link to the github of the project</h3>
 								<br> <a href="">(soon) bike traffic github</a>

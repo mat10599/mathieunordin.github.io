@@ -1,0 +1,13 @@
+{
+    "grammarly.selectors": [
+        {
+            "language": "html",
+            "scheme": "file",
+            "pattern": "cv.html"
+        },
+        {
+            "language": "html",
+            "scheme": "file"
+        }
+    ]
+}
