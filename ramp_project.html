@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<!--
+	Landed by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>No Sidebar - Landed by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+			<header id="header">
+				<h1 id="logo"><a href="index.html">Mathieu Nordin</a></h1>
+				<nav id="nav">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li>
+							<a href="projects.html">Projects</a>
+					
+						</li>
+						<li><a href="cv.html">Resume</a></li>
+						<li><a href="mailto: mathieunordin@yahoo.fr" class="button primary">Contact Me</a></li>
+					</ul>
+				</nav>
+			</header>
+
+			<!-- Main -->
+				<div id="main" class="wrapper style1">
+					<div class="container">
+						<header class="major">
+							<h2>Predict Bycicle Traffic in Paris ?</h2>
+							<p>In Paris, counters are installed all over the city to measure bicycle traffic. They have sensors to detect when a bycicle pass them and hence they count the number of bycicles that pass at a certain location throughout the day. Counts are then aggregated by hour and the goal of this project was to predict in the future bycicle traffic in Paris.</p>
+						</header>
+
+						<!-- Content -->
+							<section id="content">
+								<a href="#" class="image fit"><img src="images/bike.png" width="50" height="400" alt="" /></a>
+								<p>We were given two datasets for this project, a train set and a test set. We train our model on the training set and then test our model on the test set. The variable we are trying to predict is bike_count which is the number of bike counts at a specific time and at a specific counter in Paris. </p>
+								<h3>A first look at the data</h3>
+								<p> We first see that there are:
+									<li>56 different counters that are located on 30 different sites. One site can have multiple counters. Usually sites are installed at intersections and two counters installed at the same site will cover different directions (ie one counter will cover axis N-S while the other will cover E-O).</li>
+									<li>455 000 observations that were collected between September 2020 to August 2021. </li>
+									<li>1 observation here represents the number of bike counts at a certain hour and at a certain counter.</li>
+									<li>9 predictors, however some of them are redundant (e.g. counter name, counter id) and/or intuitively not useful to predict the bike count (e.g. counter installation date) </li>
+									<li>No missing values</li>
+									
+								</p>
+									<figure style="float:left;">
+										<img src="images/images_ramp/map_counters.png" alt="" style="height: 400px;">
+										<figcaption style="font-size: smaller;"><i>Location of counters in Paris</i> </figcaption>
+									  </figure>
+									  
+									  <figure style="float:right; height:400px;">
+										<img src="images/images_ramp/hist_bike_count.png" alt="" style="height: 400px;">
+										<figcaption style="font-size: smaller;"> <i>Distribution of the target variable bike count </i></figcaption>
+									  </figure>
+									  
+								
+								<p  style="clear:left;">	
+									<br>
+									We note that the target variable is highly skewed and takes a large range of values, hence we will take the <strong> log of bike count </strong> instead from now on.<br>
+									With only 9 predictors: the date, the counter name, the site name, the site id, the counter id, the installation date of the counter, the latitute and longitute of the counter, we already "feel" that the information provided will be insufficient to predict the bike count accurately. Hence, we look for additional data/information that could help us predict the bike count.
+								</p>
+								<h3>Data preparation</h3>
+								<p>Because we want to add data that will be useful for predictiong the target variable, we must ask ourselves what factors look useful to predict bike count in Paris. <br><br>
+								Why do people take their bycicle?
+								<li> Mainly to go to work/school/university.</li> <br>
+								What factors might influence their decision to take the bike? <br> <br>
+								<li> The weather (if it is pouring/snowing it might be dangerous or not possible to take the bike)</li>
+								<li> Holidays, bank holidays, as people do not need to go to work/university</li>
+								<li> Quarantines, as the data set have counts that were taken during the pandemic. </li>
+								<br>
+								Therefore, we look for an external data set that has information about the weather in Paris for every hours and we create a boolean True/False, that indicates if we are in holidays, bank holidays and in quarantine.<br>
+								Also, we transform the hours and months into <a href="https://www.kaggle.com/code/avanwyk/encoding-cyclical-features-for-deep-learning">cyclical encoding</a> to prevent our model to interpret December (encoded 12) and January (encoded 1) as being further from each other than January (1) and February (2).
+	
+								</p>
+
+								<p>
+									After getting a complete weather dataset (more than 40 variables), we need to clean it. We first check for patterns in the distribution of missing values. We found none and we decided that all the variables that had more than 10% missing values would be discarded as it would have required too much work to clean them.
+									The variables with less than 10% missing values were filled using <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.interpolate.html">linear interpolation</a> (method linear for continuous variables and method padding for factors).
+								</p>
+
+								<p>Finally, many plots were produced to explore relationships between the different predictor variables and the target variable (log bike count). Below are some examples of interesting plots. </p>
+
+								<figure style="float:left;">
+									<img src="images/images_ramp/log(bike_count+1)-quarantine1_plot.png" alt="" style="height: 300px;">
+									<figcaption style="font-size: smaller;"><i>Plot of the mean of the log counts for quarantine (1) and no quarantine (0)</i> </figcaption>
+								  </figure>
+								  
+								  <figure style="float:right; height:400px;">
+									<img src="images/images_ramp/log(bike_count+1)-t_plot.png" alt="" style="height: 300px;">
+									<figcaption style="font-size: smaller;"> <i>Plot of the mean of the log counts against every temperature value </i></figcaption>
+								  </figure>
+								
+								<p  style="clear:left;">
+									<br><br>
+									We see on these two plots that the predictors quarantine1 and t(K) which are respectively a boolean 0/1 that says if we are in the first quarantine period (October 2020) and the temperature in Kelvin should be useful to predict bike counts. We see that the log of bike counts is much higher when we are not in quarantine than when we are in quarantine and the that there is a positive correlation between the temperature and the number of bike counts.
+								</p>
+
+								<img src="images/images_ramp/count_date_plot.png" width="" height="400 px" alt="" style="display:block;margin:0 auto" />
+
+								<p style="clear: left;"> 
+									<br>
+									We notice in the above plots that there are a fews "drops" in the value of bike counts that is common to all counters, these corresponds to holidays. One drop is more important than others, and occurs during the Christmas holidays. We therefore create a specific boolean variable to capture this phenomena.
+								</p>
+								<br>
+								<h3> Model selection</h3>
+								<p>
+								Different machine learning algorithms were tried as well as different combinations of predictors. To avoid overfitting we used <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html">cross validation times series split </a>. 
+								With this method, we can use classical cross validation and make sure that we train our model and counts that were observed <strong>before</strong> those use to test our model. The disadvantage, is that we can either have the training set size be different for each fold which is not ideal for hyper-parameter tuning (current figure), or have constant sized small training set which is also not ideal given the data periodicity. This explains that generally we will have worse cross-validation scores than test scores.
+								
+								
+								</p>
+								<img src="https://i.stack.imgur.com/Q37Bn.png" style="display:block;margin:0 auto"/>
+								<p style="clear: left;">
+									<br>
+									Ridge regression was the first model tried out. It was completely outperformed by Decision Tree (DT) models : 
+									<a href = "https://www.section.io/engineering-education/introduction-to-random-forest-in-machine-learning/">Random-Forest</a> and <a href = "https://towardsdatascience.com/xgboost-an-intuitive-explanation-88eb32a48eff">XGBoost</a>. This was expected as these models can model non-linearity, take into account
+interactions between different predictors and handle co-linearity better than linear regression (LR), while
+benefiting from mechanism that prevent overfitting. DT based algorithms are also better suited for categorical predictors then LR. The boosting algorithms outperformed RandomForest. This is probably because
+boosting algorithms focus on reducing an objective function (in this case RMSE which is the error function used to evaluate the model). A small MLP (hidden layers= [8,4]) was also tried out, but it was
+outperformed by the DT-algorithms.<br> 
+Finally, <a href="https://thaddeus-segura.com/catboost/#:~:text=CatBoost%2C%20short%20for%20Category%20Boosting%2C%20is%20an%20algorithm,does%20especially%20well%20with%20data%20containing%20%E2%80%9Ccategorical%20variables.%E2%80%9D">CatBoost</a>  was also tried out and it outperformed the other models (expected as CatBoost outperforms XGBoost on
+most benchmarks and is specifically designed to handle categorical variables). The final model uses CatBoost. Once the algorithm chosen, we tried to leave out some
+external features to check if they were necessary in the model. We obtained the best score by keeping
+all our selected features. A minor drawback of the boosting algorithms is an increase in training time.
+								</p>
+								<h3> Model Evaluation</h3>
+								<img src="images/images_ramp/RMSE_plot_vs_name.png" width="" height="400 px" alt="" style="display:block;margin:0 auto" />
+								<p>
+									<br>
+								We now analyse the accuracy of our model. From the above plot, we see that the model performs well on all
+the counters except one: counter ”90 Rue De S`evres NE-SO”. We note from the plot below that the model gives
+poor predictions overall in late August but that it is very accurate over the rest of the period. The counter ”90 Rue De S`evres NE-SO” is the only counter with very low counts in
+September.
+<br><br> The reason for this could be:
+<li>a technical problem on the counter that prevents it to count every bycicle (for example their could be some physical obstacle on the street that diminishes its capability to count bycicles</li>
+<li>a phenomena that occurs for this particular counter that our model cannot predict because we did not give it enough information. Adding relevant data could be a solution in that case.</li>
+ <br> Finally, we note that our model has more accurate predictions for counters with high counts which is
+a consequence of the squared errors in the objective function.
+								</p>
+								<img src="images/images_ramp/general predictions.png" width="" height="350 px" alt="" style="display:block;margin:0 auto" />
+								<br>
+								<h3>How could we go futher?</h3>
+								Here is a non exhaustive list of some ideas we have to improve our model:
+								<li>Get expert knowledge to understand the underlying phenomenon that impact the bycicle traffic. </li>
+								<li>Try different class of machine learning techniques that do not simply take the date as a feature but actually have weights that evolved in time such as Dynamic Linear Model. Recurrent neural network (RNN) could be another interesting path to explore</li>
+								<li>Fit one model per counter, the issue with this is that we loose generality of our model and interpretability of general phenomena that impact bycicle traffic in Paris. The computational cost of training the model is also much greater the final model will more complex.</li>
+								<br>
+								<h3>Link to the github of the project</h3>
+								<br> <a href="">(soon) bike traffic github</a>
+
+							</section>
+
+					</div>
+				</div>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<ul class="icons">
+					<li><a href="https://www.linkedin.com/in/mathieu-nordin-9088b71b6/" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+					
+					<li><a href="mailto: mathieunordin@yahoo.fr" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
