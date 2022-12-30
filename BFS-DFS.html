@@ -103,7 +103,7 @@
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><img src="images/image_bfs/tree-graph.png" alt="tree vs graph"></p>
+<p><img src="images/image_bfs/tree-graph.png" alt="tree vs graph" style="width: 50vw"></p>
 <p>BFS and DFS are two algorithms that traverse a graph or tree data structure. They traverse it in a systematic way, visiting all the nodes and edges. <br>
 They can be used to:</p>
 <p><li> <strong>Search for a specific node or value in a graph or tree </strong>. You can use BFS and DFS to search for a specific node or value by starting at the root node and exploring the graph or tree until you find the target node.</p>
@@ -218,7 +218,8 @@ If there are N nodes and E edges, the algorithm runs in O(E+N) since every nodes
 
 
 
-<div class=" highlight hl-ipython3"><pre><span class="c1"># implementation of BFS algo in Python </span>
+<div class=" highlight hl-ipython3">
+  <pre><code><span class="c1"># implementation of BFS algo in Python </span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
 
 <span class="k">def</span> <span class="nf">BFS</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
@@ -232,13 +233,14 @@ If there are N nodes and E edges, the algorithm runs in O(E+N) since every nodes
       <span class="k">if</span> <span class="n">m</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
         <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
         <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-      
+      </code>
 </pre></div>
 
      </div>
 </div>
 </div>
 </div>
+
 
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
