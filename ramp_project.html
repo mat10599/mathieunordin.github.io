@@ -52,17 +52,15 @@
 									<li>No missing values</li>
 									
 								</p>
-									<figure style="float:left;">
-										<img src="images/images_ramp/map_counters.png" alt="" style="height: 400px;">
-										<figcaption style="font-size: smaller;"><i>Location of counters in Paris</i> </figcaption>
-									  </figure>
-									  
-									  <figure style="float:right; height:400px;">
-										<img src="images/images_ramp/hist_bike_count.png" alt="" style="height: 400px;">
-										<figcaption style="font-size: smaller;"> <i>Distribution of the target variable bike count </i></figcaption>
-									  </figure>
-									  
-								
+								<div style="text-align: center;">
+									<div style="display: inline-block; margin-right: 1vw;">
+									  <img src="images/images_ramp/map_counters.png" style="height: 35vh;">
+									</div>
+									<div style="display: inline-block;margin-left: 1vw">
+									  <img src="images/images_ramp/hist_bike_count.png" style="height: 35vh;">
+									</div>
+								  </div>
+									
 								<p  style="clear:left;">	
 									<br>
 									We note that the target variable is highly skewed and takes a large range of values, hence we will take the <strong> log of bike count </strong> instead from now on.<br>
@@ -88,23 +86,22 @@
 								</p>
 
 								<p>Finally, many plots were produced to explore relationships between the different predictor variables and the target variable (log bike count). Below are some examples of interesting plots. </p>
-
-								<figure style="float:left;">
-									<img src="images/images_ramp/log(bike_count+1)-quarantine1_plot.png" alt="" style="height: 300px;">
-									<figcaption style="font-size: smaller;"><i>Plot of the mean of the log counts for quarantine (1) and no quarantine (0)</i> </figcaption>
-								  </figure>
-								  
-								  <figure style="float:right; height:400px;">
-									<img src="images/images_ramp/log(bike_count+1)-t_plot.png" alt="" style="height: 300px;">
-									<figcaption style="font-size: smaller;"> <i>Plot of the mean of the log counts against every temperature value </i></figcaption>
-								  </figure>
+								<div style="text-align: center;">
+									<div style="display: inline-block; margin-right: 1vw;">
+									  <img src="images/images_ramp/log(bike_count+1)-quarantine1_plot.png" style="height: 35vh;">
+									</div>
+									<div style="display: inline-block;margin-left: 1vw">
+									  <img src="images/images_ramp/log(bike_count+1)-t_plot.png" style="height: 35vh;">
+									</div>
+								  </div>
 								
 								<p  style="clear:left;">
-									<br><br>
-									We see on these two plots that the predictors quarantine1 and t(K) which are respectively a boolean 0/1 that says if we are in the first quarantine period (October 2020) and the temperature in Kelvin should be useful to predict bike counts. We see that the log of bike counts is much higher when we are not in quarantine than when we are in quarantine and the that there is a positive correlation between the temperature and the number of bike counts.
+									
+									
 								</p>
+								<p>We see on these two plots that the predictors quarantine1 and t(K) which are respectively a boolean 0/1 that says if we are in the first quarantine period (October 2020) and the temperature in Kelvin should be useful to predict bike counts. We see that the log of bike counts is much higher when we are not in quarantine than when we are in quarantine and the that there is a positive correlation between the temperature and the number of bike counts.</p>
 
-								<img src="images/images_ramp/count_date_plot.png" width="" height="400 px" alt="" style="display:block;margin:0 auto" />
+								<img src="images/images_ramp/count_date_plot.png" height="" alt="" style="display:block;margin:0 auto;  height:50vh" />
 
 								<p style="clear: left;"> 
 									<br>
@@ -118,7 +115,7 @@
 								
 								
 								</p>
-								<img src="https://i.stack.imgur.com/Q37Bn.png" style="display:block;margin:0 auto"/>
+								<img src="https://i.stack.imgur.com/Q37Bn.png" style="display:block;margin:0 auto;width: 50vw"/>
 								<p style="clear: left;">
 									<br>
 									Ridge regression was the first model tried out. It was completely outperformed by Decision Tree (DT) models : 
@@ -133,7 +130,7 @@ external features to check if they were necessary in the model. We obtained the 
 all our selected features. A minor drawback of the boosting algorithms is an increase in training time.
 								</p>
 								<h3> Model Evaluation</h3>
-								<img src="images/images_ramp/RMSE_plot_vs_name.png" width="" height="400 px" alt="" style="display:block;margin:0 auto" />
+								<img src="images/images_ramp/RMSE_plot_vs_name.png" width="" height="" alt="" style="display:block;margin:0 auto; width: 70vw" />
 								<p>
 									<br>
 								We now analyse the accuracy of our model. From the above plot, we see that the model performs well on all
@@ -146,7 +143,7 @@ September.
  <br> Finally, we note that our model has more accurate predictions for counters with high counts which is
 a consequence of the squared errors in the objective function.
 								</p>
-								<img src="images/images_ramp/general predictions.png" width="" height="350 px" alt="" style="display:block;margin:0 auto" />
+								<img src="images/images_ramp/general predictions.png" width="" height="350 px" alt="" style="display:block;margin:0 auto; width: 70vw" />
 								<br>
 								<h3>How could we go futher?</h3>
 								Here is a non exhaustive list of some ideas we have to improve our model:
